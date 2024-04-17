@@ -3,9 +3,11 @@ import { ConfigurationModule } from './infrastructure/configuration/configuratio
 import { DatabaseModule } from './infrastructure/database/database.module';
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { UserModule } from './user/user.module';
+import { User } from './user/user.model';
 
 @Module({
-    imports: [AppRoutingModule, ConfigurationModule, DatabaseModule],
+    imports: [AppRoutingModule, ConfigurationModule, DatabaseModule, UserModule],
 })
 
 @Module({
@@ -17,7 +19,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
         username: 'root',
         password: 'root',
         database: 'test',
-        models: [],
+        models: [User],
+        autoLoadModels: true,
+        synchronize: true,
       }),
     ],
   })
