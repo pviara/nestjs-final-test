@@ -6,15 +6,17 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { UserModule } from './user/user.module';
 
 
+
+
 @Module({
     imports: [
       SequelizeModule.forRoot({
         dialect: 'postgres',
-        host: '172.20.0.2',
+        host: 'localhost',
         port: 24000,
         username: 'postgres',
         password: 'postgres',
-        database: 'create-postgres-db',
+        database: 'nestjs-final-test-db',
         autoLoadModels: true,
         synchronize: true,
       }),

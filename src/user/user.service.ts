@@ -25,10 +25,10 @@ export class UserService {
     }
 
     
-    getUser(userId: number): Promise<User> {
+    getUser(email: string): Promise<User> {
         return this.userModel.findOne({ 
             where: {
-                 userId,
+                 email,
             },
         });
     }
