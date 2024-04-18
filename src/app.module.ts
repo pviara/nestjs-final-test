@@ -3,10 +3,9 @@ import { ConfigurationModule } from './infrastructure/configuration/configuratio
 import { DatabaseModule } from './infrastructure/database/database.module';
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { UserModule } from './user/user.module';
 
-@Module({
-    imports: [AppRoutingModule, ConfigurationModule, DatabaseModule],
-})
+
 @Module({
         imports: [
             SequelizeModule.forRoot({
@@ -19,6 +18,11 @@ import { SequelizeModule } from '@nestjs/sequelize';
                 autoLoadModels: true,
                 synchronize: true,
             }),
+            AppRoutingModule, 
+            ConfigurationModule, 
+            DatabaseModule,
+            UserModule,
         ],
+        
 })
 export class AppModule {}
