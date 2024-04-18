@@ -11,9 +11,9 @@ export class UserController {
         return this.userService.addUser(createUserDTO.email);
     }
 
-    @Get('user/:userId')
+    @Get(':userId')
     getUser(@Param('userId') userId: string) {
-        return this.userService.getUser(userId); 
+        return this.userService.getUser(+userId); 
     }
 
     

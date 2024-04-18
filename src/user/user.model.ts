@@ -1,10 +1,13 @@
-import {Column, Model, Table, DataType} from 'sequelize-typescript';
+import {Column, Model, Table, PrimaryKey, AutoIncrement} from 'sequelize-typescript';
 
 @Table
-export class User extends Model {
-    @Column({
-        type: DataType.STRING,
-        allowNull: false,
-    })
+export class User extends Model<User> {
+    
+    @PrimaryKey
+    @AutoIncrement
+    @Column
+    userId: number;
+
+    @Column
     email: string;
 }

@@ -4,11 +4,7 @@ import { DatabaseModule } from './infrastructure/database/database.module';
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UserModule } from './user/user.module';
-import { User } from './user/user.model';
 
-@Module({
-    imports: [AppRoutingModule, ConfigurationModule, DatabaseModule, UserModule],
-})
 
 @Module({
     imports: [
@@ -19,10 +15,14 @@ import { User } from './user/user.model';
         username: 'root',
         password: 'root',
         database: 'test',
-        models: [User],
         autoLoadModels: true,
         synchronize: true,
       }),
+      AppRoutingModule, 
+      ConfigurationModule, 
+      DatabaseModule,
+      UserModule,
     ],
+
   })
 export class AppModule {}
