@@ -10,11 +10,11 @@ import { UserModule } from './user/user.module';
     imports: [
       SequelizeModule.forRoot({
         dialect: 'postgres',
-        host: 'localhost',
-        port: 5432,
-        username: 'root',
-        password: 'root',
-        database: 'test',
+        host: '172.20.0.2',
+        port: 24000,
+        username: 'postgres',
+        password: 'postgres',
+        database: 'create-postgres-db',
         autoLoadModels: true,
         synchronize: true,
       }),
