@@ -10,6 +10,8 @@ services:
     environment:
       POSTGRES_USER: "${DATABASE_USER}"
       POSTGRES_PASSWORD: "${DATABASE_PASSWORD}"
+    env_file:
+      - ../.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./scripts/create-postgres-db.sql:/docker-entrypoint-initdb.d/create-postgres-db.sql
