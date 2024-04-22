@@ -1,4 +1,8 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import {
+    Injectable,
+    ConflictException,
+    NotAcceptableException,
+} from '@nestjs/common';
 import { User } from './model/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -14,15 +18,25 @@ export class UserService {
         return await this.userRepository.find();
     }
 
-    /*addUser(email: string): Promise<void> {
-        throw new NotImplementedException();
+    async createUser(email: string): Promise<User> {
+        const user = new User();
+        user.email = email;
+
+        const existingUser = await this.userRepository.findOne({
+            where: { email: user.email },
+        });
+        if (existingUser) {
+            throw new ConflictException('User already exists');
+        }
+
+        return await this.userRepository.save(user);
     }
 
-    getUser(email: string): Promise<unknown> {
-        throw new NotImplementedException();
-    }*/
+    async getUser(email: string): Promise<User> {
+        return await this.userRepository.findOne({ where: { email } });
+    }
 
-    resetData(): Promise<void> {
-        throw new NotImplementedException();
+    async resetData(): Promise<void> {
+        await this.userRepository.delete({});
     }
 }

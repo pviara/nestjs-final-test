@@ -62,7 +62,7 @@ describe('UserController', () => {
 
         it('should return an HTTP error status 409 when given user already exists', async () => {
             const payload = { email: 'name@test.com' };
-            await userService.addUser(payload.email);
+            await userService.createUser(payload.email);
 
             const response = await request(app.getHttpServer())
                 .post('/user')

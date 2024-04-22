@@ -181,6 +181,6 @@ async function createUserUsing(
     userService: UserService,
     email: string,
 ): Promise<any> {
-    await userService.addUser(email);
+    await userService.createUser(email);
     return userService.getUser(email) as any;
 }

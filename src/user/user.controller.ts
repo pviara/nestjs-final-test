@@ -1,13 +1,37 @@
-import { Controller, Get } from '@nestjs/common';
+import {
+    Controller,
+    Post,
+    Body,
+    HttpException,
+    HttpStatus,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './model/user.entity';
 
-@Controller('/users')
+@Controller()
 export class UserController {
-    constructor(private readonly userSevice: UserService) {}
+    constructor(private userService: UserService) {}
 
-    @Get('/all')
-    async findAll(): Promise<User[]> {
-        return this.userSevice.findAll();
+    private isValidEmail(email: string): boolean {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    @Post()
+    async createUser(@Body() user: Partial<User>) {
+        // Validate the payload
+        if (!user.email || !this.isValidEmail(user.email)) {
+            throw new HttpException('Invalid payload', HttpStatus.BAD_REQUEST);
+        }
+
+        // Check if the user already exists
+        const existingUser = await this.userService.getUser(user.email);
+        if (existingUser) {
+            throw new HttpException('User already exists', HttpStatus.CONFLICT);
+        }
+
+        // Create the user
+        const createdUser = await this.userService.createUser(user.email);
+        return createdUser;
     }
 }
