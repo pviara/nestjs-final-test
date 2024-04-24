@@ -5,19 +5,28 @@ import { User } from '../../user/model/user.entity';
 import { Task } from '../../task/model/task.entity';
 import { UserModule } from '../../user/user.module';
 import { TaskModule } from '../../task/task.module';
+import { ConfigurationService } from '../configuration/configuration.service';
+import * as dotenv from 'dotenv';
+import { ConfigurationModule } from '../configuration/configuration.module';
+
+dotenv.config(); //used to get process.env access
 
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }),
-        TypeOrmModule.forRoot({
-            type: 'postgres',
-            port: 24000,
-            database: 'nestjs-final-test-db',
-            username: 'postgres',
-            password: 'postgres',
-            host: 'localhost',
-            entities: [User, Task],
-            synchronize: true,
+        TypeOrmModule.forRootAsync({
+            imports: [ConfigurationModule],
+            inject: [ConfigurationService],
+            useFactory: (configService: ConfigurationService) => ({
+                type: process.env.DATABASE_TYPE as any,
+                port: configService.databaseConfig.DATABASE_PORT,
+                database: configService.databaseConfig.DATABASE_NAME,
+                username: process.env.DATABASE_USERNAME,
+                password: process.env.DATABASE_PASSWORD,
+                host: process.env.DATABASE_HOST,
+                entities: [User, Task],
+                synchronize: process.env.DATABASE_SYNCRONIZE === 'true',
+            }),
         }),
         UserModule,
         TaskModule,
