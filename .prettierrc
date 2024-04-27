@@ -12,6 +12,7 @@
         "^@nestjs/(.*)$",
         "^[./]",
         "^@env/(.*)$",
+        "^@infrastructures/(.*)$",
         "^@modules/(.*)$",
         "^@helpers/(.*)$",
         "^@constants/(.*)$",

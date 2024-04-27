@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 import { INestApplication, Injectable, OnModuleDestroy, OnModuleInit, Scope } from "@nestjs/common";
 
-import { LoggerService } from "@modules/logger/services/logger.service";
+import { LoggerService } from "@infrastructures/logger/services/logger.service";
 
 @Injectable({ scope: Scope.DEFAULT })
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
@@ -24,6 +24,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
 
     async enableShutdownHooks(app: INestApplication) {
         process.on("beforeExit", async () => {
+            this.logger.log("Disconnecting from the database", this.constructor.name);
             await app.close();
         });
     }

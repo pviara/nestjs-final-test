@@ -14,7 +14,7 @@
       "baseUrl": ".",
       "paths": {
           "@env": ["./src/env"],
-          "@infrastructures/*": ["./src/infrastructures/*"],
+          "@infrastructures/*": ["./src/infrastructure/*"],
           "@modules/*": ["./src/modules/*"],
           "@helpers/*": ["./src/helpers/*"],
           "@decorators/*": ["./src/decorators/*"],
