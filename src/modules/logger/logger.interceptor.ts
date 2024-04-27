@@ -1,6 +1,7 @@
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from "@nestjs/common";
-import { yellow, green } from "chalk";
+import { green, yellow } from "chalk";
 import { catchError, tap } from "rxjs";
+
+import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
 
 @Injectable()
 export class LoggerInterceptor implements NestInterceptor {

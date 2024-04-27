@@ -1,10 +1,7 @@
-import { ConfigService } from '@nestjs/config';
-import {
-    DatabaseConfiguration,
-    DATABASE_NAME,
-    DATABASE_PORT,
-} from './model/database-configuration';
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+
+import { DATABASE_NAME, DATABASE_PORT, DatabaseConfiguration } from "./model/database-configuration";
 
 @Injectable()
 export class ConfigurationService {
@@ -35,7 +32,7 @@ export class ConfigurationService {
     private getVariableFromEnvFile(key: string): string {
         const variable = this.nestConfigService.get<string>(key);
         if (!variable) {
-            throw new Error('No database port could be found from env file.');
+            throw new Error("No database port could be found from env file.");
         }
         return variable;
     }
