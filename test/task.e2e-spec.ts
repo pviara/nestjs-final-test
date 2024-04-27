@@ -1,8 +1,8 @@
 import { AppModule } from '../src/app.module';
 import { INestApplication } from '@nestjs/common';
-import { TaskService } from '../src/task/task.service';
+import { TaskService } from '../src/modules/task/task.service';
 import { Test } from '@nestjs/testing';
-import { UserService } from '../src/user/user.service';
+import { UserService } from '../src/modules/user/user.service';
 import * as request from 'supertest';
 
 describe('TaskController', () => {

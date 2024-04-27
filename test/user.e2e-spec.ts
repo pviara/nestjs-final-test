@@ -1,7 +1,7 @@
 import { AppModule } from '../src/app.module';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { UserService } from '../src/user/user.service';
+import { UserService } from '../src/modules/user/user.service';
 import * as request from 'supertest';
 
 describe('UserController', () => {

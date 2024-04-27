@@ -1,4 +1,4 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable, NotImplementedException } from "@nestjs/common";
 
 @Injectable()
 export class UserService {
