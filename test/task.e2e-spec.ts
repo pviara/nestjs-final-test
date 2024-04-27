@@ -7,6 +7,21 @@ import { AppModule } from "../src/app.module";
 import { TaskService } from "../src/modules/task/task.service";
 import { UserService } from "../src/modules/user/user.service";
 
+async function createNestApplication(): Promise<INestApplication> {
+    process.env.DATABASE_NAME = "test_nestjs-final-test-db_TASKS";
+
+    const module = await Test.createTestingModule({
+        imports: [AppModule],
+    }).compile();
+
+    return module.createNestApplication();
+}
+
+async function createUserUsing(userService: UserService, email: string): Promise<any> {
+    await userService.addUser(email);
+    return userService.getUser(email) as any;
+}
+
 describe("TaskController", () => {
     let app: INestApplication;
 
@@ -128,7 +143,7 @@ describe("TaskController", () => {
 async function createTasksFor2DifferentUsers(
     userService: UserService,
     taskService: TaskService
-): Promise<{ user: any, tasks: any[] }[]> {
+): Promise<{ user: any; tasks: any[] }[]> {
     const createdUser1 = await createUserUsing(userService, "email_1@test.com");
     for (let count = 0; count < 15; count++) {
         await taskService.addTask(`task #${count}`, createdUser1.id, 1);
@@ -149,19 +164,4 @@ async function createTasksFor2DifferentUsers(
             tasks: await taskService.getUserTasks(createdUser2.id),
         },
     ];
-}
-
-async function createNestApplication(): Promise<INestApplication> {
-    process.env.DATABASE_NAME = "test_nestjs-final-test-db_TASKS";
-
-    const module = await Test.createTestingModule({
-        imports: [AppModule],
-    }).compile();
-
-    return module.createNestApplication();
-}
-
-async function createUserUsing(userService: UserService, email: string): Promise<any> {
-    await userService.addUser(email);
-    return userService.getUser(email) as any;
 }
