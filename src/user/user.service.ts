@@ -1,18 +1,36 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { User } from './user.model';
 
 @Injectable()
 export class UserService {
-    constructor() {}
+    successResponse: any;
+    constructor(
+        @InjectModel(User)
+        private userModel: typeof User,
+    ) {}
 
-    addUser(email: string): Promise<void> {
-        throw new NotImplementedException();
+    async addUser(email: string): Promise<void> {
+        const existingUser = await this.userModel.findOne({ where: { email } });
+        if (existingUser) {
+            throw new ConflictException('Email already exists');
+        }
+        await this.userModel.create({ email });
     }
 
-    getUser(email: string): Promise<unknown> {
-        throw new NotImplementedException();
+    getUser(email: string): Promise<User> {
+        return this.userModel.findOne({
+            where: {
+                email,
+            },
+        });
+    }
+    getUserById(id: number) {
+        return this.userModel.findByPk(id);
     }
 
-    resetData(): Promise<void> {
-        throw new NotImplementedException();
+
+    async resetData(): Promise<void> {
+        await this.userModel.destroy({ where: {} });
     }
 }
