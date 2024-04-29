@@ -1,8 +1,14 @@
 import { Injectable, NotImplementedException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Task } from './task.model';
 
 @Injectable()
 export class TaskService {
-    constructor() {}
+    successResponse: any;
+    constructor(
+        @InjectModel(Task)
+        private taskModel: typeof Task,
+    ) {}
 
     addTask(name: string, userId: string, priority: number): Promise<void> {
         throw new NotImplementedException();
