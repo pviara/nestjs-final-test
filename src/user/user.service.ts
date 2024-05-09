@@ -1,8 +1,4 @@
-import {
-    Injectable,
-    ConflictException,
-    NotAcceptableException,
-} from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { User } from './model/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -16,6 +12,12 @@ export class UserService {
 
     async findAll(): Promise<User[]> {
         return await this.userRepository.find();
+    }
+
+    async findById(userId: number): Promise<User> {
+        return await this.userRepository.findOne({
+            where: { userid: userId },
+        });
     }
 
     async createUser(email: string): Promise<User> {

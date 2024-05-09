@@ -6,5 +6,8 @@ export class Task {
     id: number;
 
     @Column({})
-    titre: string;
+    name: string;
+
+    @Column({})
+    priority: number;
 }
