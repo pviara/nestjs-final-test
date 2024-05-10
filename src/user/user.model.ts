@@ -6,7 +6,7 @@ import {
     AutoIncrement,
     HasMany,
 } from 'sequelize-typescript';
-import { Task } from 'src/task/task.model';
+import { Task } from '../task/task.model';
 
 @Table
 export class User extends Model<User> {

@@ -1,5 +1,5 @@
 import { AutoIncrement, BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
-import { User } from "src/user/user.model";
+import { User } from "../user/user.model";
 
 @Table
 export class Task extends Model<Task> {
