@@ -4,7 +4,9 @@ import {
     Table,
     PrimaryKey,
     AutoIncrement,
+    HasMany,
 } from 'sequelize-typescript';
+import { Task } from 'src/task/task.model';
 
 @Table
 export class User extends Model<User> {
@@ -15,4 +17,8 @@ export class User extends Model<User> {
 
     @Column
     email: string;
+
+    @HasMany(() => Task)
+    tasks: Task[];
+
 }
