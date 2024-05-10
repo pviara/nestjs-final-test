@@ -1,8 +1,14 @@
-import { User } from "src/user/user.model";
+import { IsInt, Min, IsNotEmpty } from 'class-validator';
+
 
 export class CreateTaskDTO {
     id: number;
+    @IsNotEmpty()
     name: string;
-    userId: User
+    @IsInt()
+    @Min(1)
+    userId: number;
+    @IsInt()
+    @Min(1)
     priority: string;
 }

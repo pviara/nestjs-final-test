@@ -15,5 +15,5 @@ export class Task extends Model<Task> {
     userId: User;
 
     @Column
-    priority: string;
+    priority: number;
 }

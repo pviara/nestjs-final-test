@@ -1,6 +1,7 @@
 import { Injectable, NotImplementedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Task } from './task.model';
+import { User } from 'src/user/user.model';
 
 @Injectable()
 export class TaskService {
@@ -10,19 +11,27 @@ export class TaskService {
         private taskModel: typeof Task,
     ) {}
 
-    addTask(name: string, userId: string, priority: number): Promise<void> {
-        throw new NotImplementedException();
+    async addTask(name: string, userId: User, priority: number): Promise<void> {
+        await this.taskModel.create({ name, userId, priority});
     }
 
-    getTaskByName(name: string): Promise<unknown> {
-        throw new NotImplementedException();
+    getTaskByName(name: string): Promise<Task> {
+        return this.taskModel.findOne({
+            where: {
+                name,
+            }
+        })
     }
 
-    getUserTasks(userId: string): Promise<unknown[]> {
-        throw new NotImplementedException();
+    getUserTasks(userId: string): Promise<Task[]> {
+        return this.taskModel.findAll({
+            where: {
+                userId,
+            }
+        })
     }
 
-    resetData(): Promise<void> {
-        throw new NotImplementedException();
+    async resetData(): Promise<void> {
+        await this.taskModel.destroy({ where: {} });
     }
 }
