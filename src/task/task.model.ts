@@ -13,7 +13,7 @@ export class Task extends Model<Task> {
 
     @ForeignKey(() => User)
     @Column
-    userId: User;
+    userId: number;
 
     @Column
     priority: number;

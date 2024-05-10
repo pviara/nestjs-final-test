@@ -11,7 +11,7 @@ export class TaskService {
         private taskModel: typeof Task,
     ) {}
 
-    async addTask(name: string, userId: User, priority: number): Promise<void> {
+    async addTask(name: string, userId: number, priority: number): Promise<void> {
         await this.taskModel.create({ name, userId, priority});
     }
 
