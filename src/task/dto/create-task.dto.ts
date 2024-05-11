@@ -10,5 +10,5 @@ export class CreateTaskDTO {
     userId: number;
     @IsInt()
     @Min(1)
-    priority: string;
+    priority: number;
 }
