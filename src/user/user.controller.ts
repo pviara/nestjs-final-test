@@ -1,5 +1,6 @@
 import {
     Controller,
+    Get,
     Post,
     Body,
     HttpException,
@@ -15,6 +16,12 @@ export class UserController {
     private isValidEmail(email: string): boolean {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
+    }
+
+    @Get()
+    async getUsers() {
+        const users = await this.userService.findAll();
+        return users;
     }
 
     @Post()

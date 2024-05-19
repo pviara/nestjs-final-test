@@ -25,7 +25,7 @@ dotenv.config(); //used to get process.env access
                 password: process.env.DATABASE_PASSWORD,
                 host: process.env.DATABASE_HOST,
                 entities: [User, Task],
-                synchronize: process.env.DATABASE_SYNCRONIZE === 'true',
+                synchronize: true,
             }),
         }),
         UserModule,
