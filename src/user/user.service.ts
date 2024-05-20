@@ -19,9 +19,6 @@ export class UserService {
     }
 
     async findById(userId: number): Promise<User> {
-        if (isNaN(Number(userId))) {
-            throw new BadRequestException('Invalid ID');
-        }
         return await this.userRepository.findOne({
             where: { userid: userId },
         });
