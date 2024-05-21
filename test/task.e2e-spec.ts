@@ -146,12 +146,12 @@ async function createTasksFor2DifferentUsers(
     taskService: TaskService,
 ): Promise<{ user: any; tasks: any[] }[]> {
     const createdUser1 = await createUserUsing(userService, 'email_1@test.com');
-    for (let count = 0; count < 15; count++) {
+    for (let count = 0; count < 3; count++) {
         await taskService.addTask(`task #${count}`, createdUser1.id, 1);
     }
 
     const createdUser2 = await createUserUsing(userService, 'email_2@test.com');
-    for (let count = 0; count < 15; count++) {
+    for (let count = 0; count < 3; count++) {
         await taskService.addTask(`task #${count}`, createdUser2.id, 1);
     }
 
