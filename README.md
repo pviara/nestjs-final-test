@@ -8,6 +8,7 @@ Pour ce test final vous allez être évalués sur votre maîtrise du framework N
 
 - LIEVRE    Mathieu
 - BONIFACIO Timothé
+- Yoann CLAISSE
 
 ## Critères
 
