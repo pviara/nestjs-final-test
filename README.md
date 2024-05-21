@@ -3,6 +3,10 @@ Pour ce test final vous allez être évalués sur votre maîtrise du framework N
 
 🎯 **Votre objectif est simple :** faire passer tous ces tests en implémentant vous-mêmes ces fonctionnalités.
 
+## Développeurs
+LIEVRE    Mathieu 
+BONIFACIO Timothé
+
 ## Critères
 Avant de rendre votre projet, vous devez vous assurer d'avoir respecté **4 critères obligatoires** :
 
