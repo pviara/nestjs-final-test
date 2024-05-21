@@ -1,13 +1,6 @@
-import {
-    Controller,
-    Post,
-    Body,
-    Get,
-    Param,
-    BadRequestException,
-    HttpCode,
-} from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, HttpCode } from '@nestjs/common';
 import { TaskService } from './task.service';
+import { addTask } from './utils';
 
 @Controller('')
 export class TaskController {
@@ -15,16 +8,7 @@ export class TaskController {
 
     @Post('')
     @HttpCode(201)
-    async addTask(
-        @Body() body: { name: string; userId: string; priority: number },
-    ) {
-        if (
-            !body.name ||
-            !body.userId ||
-            parseInt(body.priority.toString()) <= 0
-        ) {
-            throw new BadRequestException('Invalid task payload');
-        }
+    async addTask(@Body() body: addTask) {
         const rsl = await this.taskService.addTask(
             body.name,
             body.userId,
@@ -35,9 +19,6 @@ export class TaskController {
 
     @Get('user/:userId')
     async getUserTasks(@Param('userId') userId: string) {
-        if (!userId.match(/^[a-f\d]{24}$/i)) {
-            throw new BadRequestException('Invalid user ID');
-        }
         const userTasks = await this.taskService.getUserTasks(userId);
         return userTasks;
     }

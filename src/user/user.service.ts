@@ -2,16 +2,21 @@ import {
     Injectable,
     ConflictException,
     NotFoundException,
+    BadRequestException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { User } from '../schemas/user.schema';
+import { isValidEmail } from './utils';
 
 @Injectable()
 export class UserService {
     constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
     async addUser(email: string): Promise<User> {
+        if (!email || !isValidEmail(email)) {
+            throw new BadRequestException('Invalid email');
+        }
         const existingUser = await this.userModel.findOne({ email });
         if (existingUser) {
             throw new ConflictException('User already exists');
