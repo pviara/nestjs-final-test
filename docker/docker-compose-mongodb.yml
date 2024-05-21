@@ -1,6 +1,6 @@
 version: '3.8'
 
-name: 'mongodb_nestjs-final-test'
+# name: 'mongodb_nestjs-final-test'
 
 services:
   mongodb:
