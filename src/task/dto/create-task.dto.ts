@@ -1,13 +1,20 @@
-import { IsInt, Min, IsNotEmpty, IsNumberString } from 'class-validator';
+import { IsNotEmpty, IsInt, Min } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateTaskDTO {
     id: number;
+
     @IsNotEmpty()
     name: string;
+
     @IsInt()
     @Min(1)
-    userId: number;
     @IsNotEmpty()
-    @IsNumberString()
-    priority: number;
+    userId: number;
+
+    @Transform(({ value }) => parseInt(value), { toClassOnly: true })
+    @IsInt()
+    @Min(0)
+    @IsNotEmpty()
+    priority: string | number;
 }

@@ -33,6 +33,10 @@ export class UserService {
     }
 
     async resetData(): Promise<void> {
-        await this.userModel.destroy({ where: {} });
+        try {
+            await this.userModel.destroy({ where: {} });
+        } catch (error) {
+            console.error('Error resetting data:', error);
+        }
     }
 }

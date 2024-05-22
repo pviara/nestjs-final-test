@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Task } from './task.model';
+import { CreateTaskDTO } from './dto/create-task.dto';
 
 @Injectable()
 export class TaskService {
@@ -13,13 +14,25 @@ export class TaskService {
     async addTask(
         name: string,
         userId: number,
-        priority: number,
-    ): Promise<void> {
-        await this.taskModel.create({
+        priority: string | number,
+    ): Promise<CreateTaskDTO> {
+        const priorityNumber =
+            typeof priority === 'string' ? parseInt(priority, 10) : priority;
+        if (isNaN(priorityNumber) || priorityNumber < 0) {
+            throw new Error('Invalid priority');
+        }
+
+        const task = await this.taskModel.create({
             name,
             userId,
-            priority,
+            priority: priorityNumber,
         });
+        return {
+            id: task.taskId,
+            name: task.name,
+            userId: task.userId,
+            priority: task.priority,
+        };
     }
 
     getTaskByName(name: string): Promise<Task> {
