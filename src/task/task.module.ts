@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { Sequelize } from 'sequelize';
 import { Task } from './task.model';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { TaskController } from './task.controller';

@@ -1,5 +1,4 @@
-import { IsInt, Min, IsNotEmpty } from 'class-validator';
-
+import { IsInt, Min, IsNotEmpty, IsNumberString } from 'class-validator';
 
 export class CreateTaskDTO {
     id: number;
@@ -8,7 +7,7 @@ export class CreateTaskDTO {
     @IsInt()
     @Min(1)
     userId: number;
-    @IsInt()
-    @Min(1)
+    @IsNotEmpty()
+    @IsNumberString()
     priority: number;
 }

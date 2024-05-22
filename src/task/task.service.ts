@@ -1,7 +1,6 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Task } from './task.model';
-import { User } from '../user/user.model';
 
 @Injectable()
 export class TaskService {
@@ -11,28 +10,32 @@ export class TaskService {
         private taskModel: typeof Task,
     ) {}
 
-    async addTask(name: string, userId: number, priority: number): Promise<void> {
-        const existingUser = await User.findByPk(userId);
-        if (!existingUser) {
-            throw new NotImplementedException('User does not exist');
-        }
-        await this.taskModel.create({ name, userId, priority});
+    async addTask(
+        name: string,
+        userId: number,
+        priority: number,
+    ): Promise<void> {
+        await this.taskModel.create({
+            name,
+            userId,
+            priority,
+        });
     }
 
     getTaskByName(name: string): Promise<Task> {
         return this.taskModel.findOne({
             where: {
                 name,
-            }
-        })
+            },
+        });
     }
 
-    getUserTasks(userId: string): Promise<Task[]> {
+    async getUserTasks(userId: number): Promise<Task[]> {
         return this.taskModel.findAll({
             where: {
                 userId,
-            }
-        })
+            },
+        });
     }
 
     async resetData(): Promise<void> {
