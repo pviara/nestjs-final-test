@@ -19,6 +19,6 @@ export class Task {
     priority: number;
 
     @ManyToOne(() => User, (user) => user.task, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'id' })
+    @JoinColumn({ name: 'userid' })
     user: User;
 }
