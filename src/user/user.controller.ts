@@ -1,6 +1,5 @@
 import {
     Controller,
-    Get,
     Post,
     Body,
     HttpException,
@@ -18,12 +17,6 @@ export class UserController {
         return emailRegex.test(email);
     }
 
-    @Get()
-    async getUsers() {
-        const users = await this.userService.findAll();
-        return users;
-    }
-
     @Post()
     async createUser(@Body() user: Partial<User>) {
         // Validate the payload
@@ -31,13 +24,11 @@ export class UserController {
             throw new HttpException('Invalid payload', HttpStatus.BAD_REQUEST);
         }
 
-        // Check if the user already exists
         const existingUser = await this.userService.getUser(user.email);
         if (existingUser) {
             throw new HttpException('User already exists', HttpStatus.CONFLICT);
         }
 
-        // Create the user
         const createdUser = await this.userService.createUser(user.email);
         return createdUser;
     }

@@ -4,7 +4,7 @@ import { Task } from '../../task/model/task.entity';
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    userid: number;
+    id: number;
 
     @Column({})
     email: string;

@@ -13,17 +13,13 @@ export class TaskService {
         private userRepository: Repository<User>,
     ) {}
 
-    async getTasks(): Promise<Task[]> {
-        return this.taskRepository.find();
-    }
-
     async addTask(
         name: string,
         userId: number,
         priority: number,
     ): Promise<Task> {
         const user = await this.userRepository.findOne({
-            where: { userid: userId },
+            where: { id: userId },
         });
         if (!user) {
             throw new Error('User not found');
@@ -38,7 +34,7 @@ export class TaskService {
 
     async getUserTasks(userId: number): Promise<Task[]> {
         return this.taskRepository.find({
-            where: { user: { userid: userId } },
+            where: { user: { id: userId } },
         });
     }
 

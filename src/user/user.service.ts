@@ -1,8 +1,4 @@
-import {
-    Injectable,
-    ConflictException,
-    BadRequestException,
-} from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { User } from './model/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -14,13 +10,9 @@ export class UserService {
         private userRepository: Repository<User>,
     ) {}
 
-    async findAll(): Promise<User[]> {
-        return await this.userRepository.find();
-    }
-
     async findById(userId: number): Promise<User> {
         return await this.userRepository.findOne({
-            where: { userid: userId },
+            where: { id: userId },
         });
     }
 

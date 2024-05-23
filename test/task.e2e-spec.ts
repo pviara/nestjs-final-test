@@ -46,7 +46,7 @@ describe('TaskController', () => {
 
             for (const created of createdElements) {
                 const response = await request(app.getHttpServer()).get(
-                    `/task/user/${created.user.userid}`,
+                    `/task/user/${created.user.id}`,
                 );
 
                 expect(response.status).toBe(200);
@@ -102,22 +102,22 @@ describe('TaskController', () => {
             const validPayloads = [
                 {
                     name: 'task1',
-                    userId: createdUser.userid,
+                    userId: createdUser.id,
                     priority: '1',
                 },
                 {
                     name: 'task2',
-                    userId: createdUser.userid,
+                    userId: createdUser.id,
                     priority: '1',
                 },
                 {
                     name: 'task3',
-                    userId: createdUser.userid,
+                    userId: createdUser.id,
                     priority: '1',
                 },
                 {
                     name: 'task4',
-                    userId: createdUser.userid,
+                    userId: createdUser.id,
                     priority: '1',
                 },
             ];

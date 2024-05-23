@@ -19,15 +19,6 @@ export class TaskController {
         private readonly userService: UserService,
     ) {}
 
-    @Get('/')
-    async getTasks() {
-        const tasks = await this.taskService.getTasks();
-        return {
-            STATUS_CODES: HttpStatus.OK,
-            tasks,
-        };
-    }
-
     @Get('/user/:userId')
     async getTasksByUserId(@Param('userId', ParseIntPipe) userId: number) {
         const user = await this.userService.findById(userId);
